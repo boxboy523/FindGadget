@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MVSConnect.cpp">
+    <ClCompile Include="..\MVSConnect\mvs.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MVSConnect.h">
+    <ClInclude Include="..\MVSConnect\mvs.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

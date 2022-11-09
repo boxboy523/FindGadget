@@ -5,11 +5,12 @@
 void WinForm::DataForm::updatePositionTable() {
 	ImageProcess* IP = parentForm->getImageProcess();
 		if (IP == nullptr) return;
-	//cout << std::get<0>(IP->getPositions()[0]) << endl;
-	vector<tuple<cv::Point, double>> P = IP->getPositions();
+	cout << IP->getPositions()[0].name << endl;
+	vector<CONTINFO> P = IP->getPositions();
 	table->Clear();
 	for (int i = 0; P.size() > i; i++) {
-		table->Rows->Add(i, std::get<0>(P[i]).x, std::get<0>(P[i]).y , std::get<1>(P[i]));
+		System::String^ const str = gcnew System::String(P[i].name.c_str());
+		table->Rows->Add(i, P[i].point.x, P[i].point.y , P[i].degree, str);
 	}
 
 	dataGridView->DataSource = table;
@@ -23,6 +24,7 @@ void WinForm::DataForm::initTable() {
 		table->Columns->Add(gcnew DataColumn("x", Int32::typeid));
 		table->Columns->Add(gcnew DataColumn("y", Int32::typeid));
 		table->Columns->Add(gcnew DataColumn("degree", double::typeid));
+		table->Columns->Add(gcnew DataColumn("Name", System::String::typeid));
 		cout << "mode 0 init" << endl;
 		break;
 	case 1:

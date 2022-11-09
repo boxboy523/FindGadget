@@ -1,22 +1,8 @@
 #include "MyForm.h"
 #include "DataForm.h"
-#include <gdiplus.h>
 using namespace System::Threading;
 using namespace System::Runtime::InteropServices;
 
-
-
-void WinForm::MyForm::CamLoop(void) {
-	int s;
-	cout << "CamLoop" << endl;
-	while (ShowCam) {
-		s = imgUpdate();
-		if (s == -1) { break;}
-	}
-	pictureBox1->Image = nullptr;
-	delete FormImageProcess;
-	FormImageProcess = nullptr;
-}	
 
 System::Drawing::Bitmap^ WinForm::MyForm::MatToBmp(cv::Mat *img, System::Drawing::Imaging::PixelFormat format) {
 	cout <<"image information" <<" Cols: " << img->cols<<" Rows: " << img->rows <<" Steps: " << img->step1() << " Depth: " << img->depth() << endl;
@@ -32,7 +18,7 @@ System::Drawing::Bitmap^ WinForm::MyForm::MatToBmp(cv::Mat *img, System::Drawing
 
 int WinForm::MyForm::imgUpdate() {
 	cout << "imgUpdate" << endl;
-	Bitmap^ bmp = getImage();
+	Bitmap^ bmp = getImage();	
 	if (bmp == nullptr) {
 		return -1;
 	}
@@ -81,13 +67,16 @@ System::Drawing::Bitmap^ WinForm::MyForm::getImage(){
 	return _palette;*/
 //}
 System::Void WinForm::MyForm::Connect_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	if (FormImageProcess)
+		delete FormImageProcess;
 	
 	ImageProcess* IP = new ImageProcess(setting);
 	if (!IP->isOpen() && !(checkBoxMVS->Checked)) {
 		MessageBox::Show("카메라를 찾을 수 없습니다.");
 		return;
 	}
-	
+
 	if (ShowCam) {
 		ShowCam = false;
 		Sleep(1);
@@ -99,6 +88,15 @@ System::Void WinForm::MyForm::Connect_Click(System::Object^ sender, System::Even
 
 	ShowCam = true;
 
-	CamDele^ dele = gcnew CamDele(this, &MyForm::CamLoop);
-	IAsyncResult^ result = dele->BeginInvoke(nullptr, nullptr);
+	imgUpdate();
+
+	//CamDele^ dele = gcnew CamDele(this, &MyForm::CamLoop);
+	//IAsyncResult^ result = dele->BeginInvoke(nullptr, nullptr);
+}
+
+
+System::Void WinForm::MyForm::buttonRefresh_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (FormImageProcess)
+		FormImageProcess->loop();
+	imgUpdate();
 }

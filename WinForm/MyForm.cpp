@@ -1,6 +1,7 @@
 #include "MyForm.h"
 #include "TempForm.h"
 #include "DataForm.h"
+#include "SettingForm.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -66,48 +67,16 @@ System::Void WinForm::MyForm::comboBoxThreshold_SelectedIndexChanged(System::Obj
 void WinForm::MyForm::updateThresholdUI(int index) {
 	switch (index) {
 	case 1:
-		setting->imgThreshType = THRESH_BINARY;
-		setting->imgThreshIsAdaptive = false;
-		trackBarThreshold->Visible = true;
-		label6->Visible = true;
-		labelThreshold->Visible = true;
-		numUpDownblock->Visible = false;
-		textBoxCval->Visible = false;
-		label8->Visible = false;
-		label9->Visible = false;
+		setting->imgThresh.Type = THRESH_BINARY;
+		setting->imgThresh.Canny = false;
 		break;
 	case 2:
-		setting->imgThreshType = ADAPTIVE_THRESH_MEAN_C;
-		setting->imgThreshIsAdaptive = true;
-		trackBarThreshold->Visible = false;
-		label6->Visible = false;
-		labelThreshold->Visible = false;
-		numUpDownblock->Visible = true;
-		textBoxCval->Visible = true;
-		label8->Visible = true;
-		label9->Visible = true;
-		break;
-	case 3:
-		setting->imgThreshType = ADAPTIVE_THRESH_GAUSSIAN_C;
-		setting->imgThreshIsAdaptive = true;
-		trackBarThreshold->Visible = false;
-		label6->Visible = false;
-		labelThreshold->Visible = false;
-		numUpDownblock->Visible = true;
-		textBoxCval->Visible = true;
-		label8->Visible = true;
-		label9->Visible = true;
+		setting->imgThresh.Type = 100;
+		setting->imgThresh.Canny = true;
 		break;
 	default:
-		setting->imgThreshType = THRESH_OTSU;
-		setting->imgThreshIsAdaptive = false;
-		trackBarThreshold->Visible = false;
-		label6->Visible = false;
-		labelThreshold->Visible = false;
-		numUpDownblock->Visible = false;
-		textBoxCval->Visible = false;
-		label8->Visible = false;
-		label9->Visible = false;
+		setting->imgThresh.Type = THRESH_OTSU;
+		setting->imgThresh.Canny = false;
 		break;
 	}
 }
@@ -199,4 +168,28 @@ System::Void WinForm::MyForm::buttonDevice_Click(System::Object^ sender, System:
 		df = gcnew WinForm::DataForm(this, 1);
 
 	df->Show();
+}
+
+System::Void WinForm::MyForm::buttonFromFile_Click(System::Object^ sender, System::EventArgs^ e) {
+	IO::Stream^ myStream;
+
+	OpenFileDialog^ ofd = gcnew OpenFileDialog();
+	ofd->Title = "Template File";
+	ofd->Filter = "그림 파일 (*.jpg, *.gif, *.bmp) | *.jpg; *.gif; *.bmp; | 모든 파일 (*.*) | *.*";
+	ofd->FilterIndex = 2;
+	ofd->RestoreDirectory = true;
+
+	if (ofd->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	{
+		if ((myStream = ofd->OpenFile()) != nullptr)
+		{
+			// Insert code to read the stream here.
+			myStream->Close();
+		}
+	}
+}
+
+System::Void WinForm::MyForm::buttonSetting_Click(System::Object^ sender, System::EventArgs^ e) {
+	SettingForm^ sf = gcnew SettingForm(setting);
+	sf->Show();
 }

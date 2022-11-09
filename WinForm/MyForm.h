@@ -2,8 +2,6 @@
 #include "../../ImageProcess/framework.h"
 #include <fstream>
 #include <msclr\marshal_cppstd.h>
-delegate void CamDele(void);
-delegate int getIndex(void);
 
 namespace WinForm {
 
@@ -64,84 +62,43 @@ namespace WinForm {
 
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::NumericUpDown^ numUpDownCamIndex;
-
-
-
-
-
-
-
-
-
-
 	private: System::Windows::Forms::Label^ labelAccurecy;
-
-
 	private: System::Windows::Forms::Button^ SetIndexButton;
-
-
-
 	private: System::Windows::Forms::ComboBox^ comboBoxCam;
-
-
-
-
 	private: System::Windows::Forms::ComboBox^ comboBoxThreshold;
-
 	private: System::Windows::Forms::Label^ labelThreshold;
-
 	public protected: System::Windows::Forms::CheckBox^ checkBoxMVS;
-
 	private: System::Windows::Forms::Button^ buttonDevice;
 
 
-
-
-	private: System::Windows::Forms::NumericUpDown^ numUpDownblock;
-	private: System::Windows::Forms::TextBox^ textBoxCval;
-
 	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel1;
-
-
 	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel2;
-
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::TrackBar^ trackBarAccurecy;
 	private: System::Windows::Forms::Label^ label3;
-	private: System::Windows::Forms::Label^ label9;
-	private: System::Windows::Forms::Label^ label8;
+
+
 	private: System::Windows::Forms::TrackBar^ trackBarThreshold;
 	private: System::Windows::Forms::Label^ label6;
 	private: System::Windows::Forms::Label^ label7;
 	private: System::Windows::Forms::Label^ label5;
-
 	private: System::Windows::Forms::Button^ Connect;
+	private: System::Windows::Forms::Button^ buttonRefresh;
 
-	private: System::Windows::Forms::Button^ buttonStop;
+
 	private: System::Windows::Forms::Button^ buttonPos;
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Panel^ panel2;
+	private: System::Windows::Forms::Button^ buttonFromFile;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	private: System::Windows::Forms::Label^ labelThreshLargeN;
+	private: System::Windows::Forms::TrackBar^ trackBarThresholdLarge;
+	private: System::Windows::Forms::Label^ labelThresholdLarge;
+	private: System::Windows::Forms::Label^ labelThresholdL;
+	private: System::Windows::Forms::Button^ buttonSetting;
 
 	public protected:
 	private:
-
-
 	protected:
 
 	private:
@@ -173,14 +130,15 @@ namespace WinForm {
 			this->labelThreshold = (gcnew System::Windows::Forms::Label());
 			this->checkBoxMVS = (gcnew System::Windows::Forms::CheckBox());
 			this->buttonDevice = (gcnew System::Windows::Forms::Button());
-			this->numUpDownblock = (gcnew System::Windows::Forms::NumericUpDown());
-			this->textBoxCval = (gcnew System::Windows::Forms::TextBox());
-			this->label8 = (gcnew System::Windows::Forms::Label());
-			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->Connect = (gcnew System::Windows::Forms::Button());
 			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
-			this->buttonStop = (gcnew System::Windows::Forms::Button());
+			this->trackBarThresholdLarge = (gcnew System::Windows::Forms::TrackBar());
+			this->buttonRefresh = (gcnew System::Windows::Forms::Button());
 			this->buttonPos = (gcnew System::Windows::Forms::Button());
+			this->buttonFromFile = (gcnew System::Windows::Forms::Button());
+			this->labelThreshLargeN = (gcnew System::Windows::Forms::Label());
+			this->labelThresholdLarge = (gcnew System::Windows::Forms::Label());
+			this->buttonSetting = (gcnew System::Windows::Forms::Button());
 			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
@@ -188,8 +146,8 @@ namespace WinForm {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numUpDownCamIndex))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarAccurecy))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarThreshold))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numUpDownblock))->BeginInit();
 			this->tableLayoutPanel1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarThresholdLarge))->BeginInit();
 			this->tableLayoutPanel2->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->SuspendLayout();
@@ -215,10 +173,10 @@ namespace WinForm {
 			// trackBarAccurecy
 			// 
 			this->tableLayoutPanel1->SetColumnSpan(this->trackBarAccurecy, 3);
-			this->trackBarAccurecy->Location = System::Drawing::Point(3, 759);
+			this->trackBarAccurecy->Location = System::Drawing::Point(3, 802);
 			this->trackBarAccurecy->Maximum = 100;
 			this->trackBarAccurecy->Name = L"trackBarAccurecy";
-			this->trackBarAccurecy->Size = System::Drawing::Size(310, 69);
+			this->trackBarAccurecy->Size = System::Drawing::Size(310, 56);
 			this->trackBarAccurecy->TabIndex = 6;
 			this->trackBarAccurecy->Value = 50;
 			this->trackBarAccurecy->Scroll += gcnew System::EventHandler(this, &MyForm::trackBarAccurecy_Scroll);
@@ -236,7 +194,7 @@ namespace WinForm {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(3, 713);
+			this->label3->Location = System::Drawing::Point(3, 751);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(86, 18);
 			this->label3->TabIndex = 9;
@@ -246,7 +204,7 @@ namespace WinForm {
 			// labelAccurecy
 			// 
 			this->labelAccurecy->AutoSize = true;
-			this->labelAccurecy->Location = System::Drawing::Point(107, 713);
+			this->labelAccurecy->Location = System::Drawing::Point(107, 751);
 			this->labelAccurecy->Name = L"labelAccurecy";
 			this->labelAccurecy->Size = System::Drawing::Size(34, 18);
 			this->labelAccurecy->TabIndex = 10;
@@ -357,41 +315,6 @@ namespace WinForm {
 			this->buttonDevice->UseVisualStyleBackColor = true;
 			this->buttonDevice->Click += gcnew System::EventHandler(this, &MyForm::buttonDevice_Click);
 			// 
-			// numUpDownblock
-			// 
-			this->numUpDownblock->Location = System::Drawing::Point(107, 631);
-			this->numUpDownblock->Name = L"numUpDownblock";
-			this->numUpDownblock->Size = System::Drawing::Size(46, 28);
-			this->numUpDownblock->TabIndex = 26;
-			this->numUpDownblock->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 5, 0, 0, 0 });
-			this->numUpDownblock->ValueChanged += gcnew System::EventHandler(this, &MyForm::numUpDownblock_ValueChanged);
-			// 
-			// textBoxCval
-			// 
-			this->textBoxCval->Location = System::Drawing::Point(107, 669);
-			this->textBoxCval->Name = L"textBoxCval";
-			this->textBoxCval->Size = System::Drawing::Size(69, 28);
-			this->textBoxCval->TabIndex = 27;
-			this->textBoxCval->Text = L"9.00";
-			// 
-			// label8
-			// 
-			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(3, 628);
-			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(84, 18);
-			this->label8->TabIndex = 28;
-			this->label8->Text = L"blockSize";
-			// 
-			// label9
-			// 
-			this->label9->AutoSize = true;
-			this->label9->Location = System::Drawing::Point(3, 666);
-			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(69, 18);
-			this->label9->TabIndex = 29;
-			this->label9->Text = L"C value";
-			// 
 			// Connect
 			// 
 			this->Connect->Location = System::Drawing::Point(3, 171);
@@ -411,6 +334,7 @@ namespace WinForm {
 				50)));
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute,
 				108)));
+			this->tableLayoutPanel1->Controls->Add(this->trackBarThresholdLarge, 0, 9);
 			this->tableLayoutPanel1->Controls->Add(this->label1, 0, 0);
 			this->tableLayoutPanel1->Controls->Add(this->Connect, 0, 2);
 			this->tableLayoutPanel1->Controls->Add(this->trackBarAccurecy, 0, 11);
@@ -426,13 +350,13 @@ namespace WinForm {
 			this->tableLayoutPanel1->Controls->Add(this->comboBoxCam, 1, 4);
 			this->tableLayoutPanel1->Controls->Add(this->comboBoxThreshold, 1, 5);
 			this->tableLayoutPanel1->Controls->Add(this->label7, 0, 5);
-			this->tableLayoutPanel1->Controls->Add(this->textBoxCval, 1, 9);
-			this->tableLayoutPanel1->Controls->Add(this->numUpDownblock, 1, 8);
-			this->tableLayoutPanel1->Controls->Add(this->label9, 0, 9);
-			this->tableLayoutPanel1->Controls->Add(this->label8, 0, 8);
-			this->tableLayoutPanel1->Controls->Add(this->buttonStop, 1, 2);
+			this->tableLayoutPanel1->Controls->Add(this->buttonRefresh, 1, 2);
 			this->tableLayoutPanel1->Controls->Add(this->buttonPos, 0, 12);
 			this->tableLayoutPanel1->Controls->Add(this->SetIndexButton, 0, 3);
+			this->tableLayoutPanel1->Controls->Add(this->buttonFromFile, 0, 1);
+			this->tableLayoutPanel1->Controls->Add(this->labelThreshLargeN, 0, 8);
+			this->tableLayoutPanel1->Controls->Add(this->labelThresholdLarge, 1, 8);
+			this->tableLayoutPanel1->Controls->Add(this->buttonSetting, 2, 1);
 			this->tableLayoutPanel1->Location = System::Drawing::Point(3, 3);
 			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
 			this->tableLayoutPanel1->RowCount = 13;
@@ -445,22 +369,34 @@ namespace WinForm {
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 49)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 79)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 38)));
-			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 47)));
-			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 43)));
-			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 105)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 85)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 48)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 62)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 65)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
 			this->tableLayoutPanel1->Size = System::Drawing::Size(316, 927);
 			this->tableLayoutPanel1->TabIndex = 31;
 			// 
-			// buttonStop
+			// trackBarThresholdLarge
 			// 
-			this->buttonStop->Location = System::Drawing::Point(107, 171);
-			this->buttonStop->Name = L"buttonStop";
-			this->buttonStop->Size = System::Drawing::Size(92, 51);
-			this->buttonStop->TabIndex = 32;
-			this->buttonStop->Text = L"Stop";
-			this->buttonStop->UseVisualStyleBackColor = true;
-			this->buttonStop->Click += gcnew System::EventHandler(this, &MyForm::buttonStop_Click);
+			this->tableLayoutPanel1->SetColumnSpan(this->trackBarThresholdLarge, 3);
+			this->trackBarThresholdLarge->Location = System::Drawing::Point(3, 669);
+			this->trackBarThresholdLarge->Maximum = 255;
+			this->trackBarThresholdLarge->Name = L"trackBarThresholdLarge";
+			this->trackBarThresholdLarge->Size = System::Drawing::Size(310, 69);
+			this->trackBarThresholdLarge->TabIndex = 36;
+			this->trackBarThresholdLarge->Value = 100;
+			this->trackBarThresholdLarge->Scroll += gcnew System::EventHandler(this, &MyForm::trackBarThresholdLarge_Scroll);
+			// 
+			// buttonRefresh
+			// 
+			this->buttonRefresh->Location = System::Drawing::Point(107, 171);
+			this->buttonRefresh->Name = L"buttonRefresh";
+			this->buttonRefresh->Size = System::Drawing::Size(92, 51);
+			this->buttonRefresh->TabIndex = 32;
+			this->buttonRefresh->Text = L"Refresh";
+			this->buttonRefresh->UseVisualStyleBackColor = true;
+			this->buttonRefresh->Click += gcnew System::EventHandler(this, &MyForm::buttonRefresh_Click);
 			// 
 			// buttonPos
 			// 
@@ -472,6 +408,44 @@ namespace WinForm {
 			this->buttonPos->Text = L"Show Position..";
 			this->buttonPos->UseVisualStyleBackColor = true;
 			this->buttonPos->Click += gcnew System::EventHandler(this, &MyForm::buttonPos_Click);
+			// 
+			// buttonFromFile
+			// 
+			this->buttonFromFile->Location = System::Drawing::Point(3, 83);
+			this->buttonFromFile->Name = L"buttonFromFile";
+			this->buttonFromFile->Size = System::Drawing::Size(98, 62);
+			this->buttonFromFile->TabIndex = 34;
+			this->buttonFromFile->Text = L"Image From file..";
+			this->buttonFromFile->UseVisualStyleBackColor = true;
+			this->buttonFromFile->Click += gcnew System::EventHandler(this, &MyForm::buttonFromFile_Click);
+			// 
+			// labelThreshLargeN
+			// 
+			this->labelThreshLargeN->AutoSize = true;
+			this->labelThreshLargeN->Location = System::Drawing::Point(3, 628);
+			this->labelThreshLargeN->Name = L"labelThreshLargeN";
+			this->labelThreshLargeN->Size = System::Drawing::Size(94, 36);
+			this->labelThreshLargeN->TabIndex = 35;
+			this->labelThreshLargeN->Text = L"Threshold Large";
+			// 
+			// labelThresholdLarge
+			// 
+			this->labelThresholdLarge->AutoSize = true;
+			this->labelThresholdLarge->Location = System::Drawing::Point(107, 628);
+			this->labelThresholdLarge->Name = L"labelThresholdLarge";
+			this->labelThresholdLarge->Size = System::Drawing::Size(38, 18);
+			this->labelThresholdLarge->TabIndex = 37;
+			this->labelThresholdLarge->Text = L"100";
+			// 
+			// buttonSetting
+			// 
+			this->buttonSetting->Location = System::Drawing::Point(211, 83);
+			this->buttonSetting->Name = L"buttonSetting";
+			this->buttonSetting->Size = System::Drawing::Size(101, 62);
+			this->buttonSetting->TabIndex = 38;
+			this->buttonSetting->Text = L"Setting";
+			this->buttonSetting->UseVisualStyleBackColor = true;
+			this->buttonSetting->Click += gcnew System::EventHandler(this, &MyForm::buttonSetting_Click);
 			// 
 			// tableLayoutPanel2
 			// 
@@ -523,9 +497,9 @@ namespace WinForm {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numUpDownCamIndex))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarAccurecy))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarThreshold))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numUpDownblock))->EndInit();
 			this->tableLayoutPanel1->ResumeLayout(false);
 			this->tableLayoutPanel1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBarThresholdLarge))->EndInit();
 			this->tableLayoutPanel2->ResumeLayout(false);
 			this->panel2->ResumeLayout(false);
 			this->panel2->PerformLayout();
@@ -543,21 +517,14 @@ namespace WinForm {
 		
 		System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e);
 		System::Void pictureBox1_Click(System::Object^ sender, System::EventArgs^ e) {}
-		void CamLoop(void);
 		int imgUpdate();
 		Bitmap^ getImage();
 		System::Void numUpDownCamIndexf(System::Object^ sender, System::EventArgs^ e) {
 			setting->CamIndex = int(numUpDownCamIndex->Value);
 		}
-		System::Void numUpDownblock_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-			setting->blockSize = int(numUpDownblock->Value);
-		}
 
 
 		System::Void textPath_TextChanged(System::Object^ sender, System::EventArgs^ e) {}
-		System::Void textBoxCval_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-			setting->C = Convert::ToDouble(textBoxCval->Text);
-		}
 		//System::Void buttonBrowse_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void treeView1_AfterSelect(System::Object^ sender, System::Windows::Forms::TreeViewEventArgs^ e) {}
 		System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {}
@@ -571,7 +538,7 @@ namespace WinForm {
 			int value = trackBarThreshold->Value;
 			labelThreshold->Text = value.ToString(CultureInfo::InvariantCulture);
 			if (FormImageProcess != nullptr) {
-				setting->imgThresh = value;
+				setting->imgThresh.Small = value;
 			}
 		}
 		System::Void Connect_Click(System::Object^ sender, System::EventArgs^ e);
@@ -582,27 +549,6 @@ namespace WinForm {
 		System::Void checkBoxMVS_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 			setting->isMVS = checkBoxMVS->Checked;
 		}
-		System::Void textBoxCval_KeyPressed(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e){
-			if (e->KeyChar == '.') {
-				if (textBoxCval->Text->IndexOf(".") >= 0 || this->Text->Length == 0) {
-					e->Handled = true;
-				}
-			}
-			else if ((e->KeyChar < '0' || e->KeyChar>'9') && e->KeyChar != '\b') {
-				e->Handled = true;
-			}
-		}
-		System::Void textBoxCval_Validating(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) {
-			System::String^ pathString = textBoxCval->Text;
-			std::string pathChar = msclr::interop::marshal_as<std::string>(pathString);
-			std::istringstream iss(pathChar);
-			float f;
-			iss >> noskipws >> f; // noskipws considers leading whitespace invalid
-			// Check the entire string was consumed and if either failbit or badbit is set
-			bool a = iss.eof() && !iss.fail();
-			if (!a) { textBoxCval->Text = ""; }
-		}
-
 		void updateThresholdUI(int index);
 		
 		//void loadIni();
@@ -628,9 +574,18 @@ private: System::Void buttonDevice_Click(System::Object^ sender, System::EventAr
 private: System::Void tableLayoutPanel1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 }
 
-private: System::Void buttonStop_Click(System::Object^ sender, System::EventArgs^ e) {
-	ShowCam = false;
+private: System::Void buttonRefresh_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void buttonFromFile_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void labelThresholdL_Click(System::Object^ sender, System::EventArgs^ e) {
 }
+private: System::Void trackBarThresholdLarge_Scroll(System::Object^ sender, System::EventArgs^ e) {
+	int value = trackBarThresholdLarge->Value;
+	labelThresholdLarge->Text = value.ToString(CultureInfo::InvariantCulture);
+	if (FormImageProcess != nullptr) {
+		setting->imgThresh.Large = value;
+	}
+}
+private: System::Void buttonSetting_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }
 

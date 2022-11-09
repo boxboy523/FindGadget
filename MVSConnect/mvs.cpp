@@ -80,7 +80,7 @@ cv::Mat MVSConnect::GetMatFrame() {
 
     MV_CC_GetOneFrameTimeout(handle, pData, g_nPayloadSize, &stImageInfo, 1000);
     image = Convert2Mat();
-    //cv::resize(image, image, cv::Size(image.cols / 2, image.rows / 2));
+    cv::resize(image, image, cv::Size(image.cols / 2, image.rows / 2));
     printf("MVS return Frame");
     return image;
 }

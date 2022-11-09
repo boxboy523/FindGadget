@@ -100,6 +100,7 @@ namespace WinForm {
 			this->Controls->Add(this->dataGridView);
 			this->Name = L"DataForm";
 			this->Text = L"DataForm";
+			this->Load += gcnew System::EventHandler(this, &DataForm::DataForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->EndInit();
 			this->ResumeLayout(false);
 
@@ -131,5 +132,7 @@ namespace WinForm {
 			}
 				
 		}
-	};
+	private: System::Void DataForm_Load(System::Object^ sender, System::EventArgs^ e) {
+	}
+};
 }
